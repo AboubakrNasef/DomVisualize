@@ -1,4 +1,13 @@
-<div class="flex h-screen">
-  <app-editor class="w-1/2 h-full"></app-editor>
-  <app-visualizer class="w-1/2"></app-visualizer>
+<div class="grid grid-cols-2 grid-rows-2 h-screen">
+  <app-editor (textOutput)="updateText($event)" class="h-full"></app-editor>
+  <app-visualizer
+    [currentCode]="currentCode"
+    class="row-span-2 border"
+  ></app-visualizer>
+  <app-html-render>
+    <p>
+      this is text <small>Small text</small>
+      <u>this is u </u>
+    </p>
+  </app-html-render>
 </div>
