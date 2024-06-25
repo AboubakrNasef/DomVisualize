@@ -26,6 +26,9 @@ export class VisualCreatorVisitor {
     }
   }
   #VisitChild(ele: Node, visualEle: IVisualElement) {
+    if (ele.nodeType === ele.TEXT_NODE && !ele.textContent?.trim()) {
+      return;
+    }
     const level = visualEle.level + 1;
     const localVisEle = {
       nodeName: ele.nodeName,

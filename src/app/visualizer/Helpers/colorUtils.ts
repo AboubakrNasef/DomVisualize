@@ -7,16 +7,17 @@ export function getColorOnNumber(num: number) {
     case 2:
       return 'Indigo';
     case 3:
-      return 'DarkKhaki';
+      return 'Maroon';
+
     case 4:
       return 'LimeGreen';
     case 5:
-      return 'Olive';
-    case 6:
       return 'CadetBlue';
+    case 6:
+      return 'Olive';
     case 7:
       return 'RosyBrown';
     default:
-      return 'Maroon';
+      return 'DarkKhaki';
   }
 }
