@@ -48,9 +48,7 @@ export class VisualizerComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // this.renderTree();
-  }
+  ngOnInit() {}
 
   renderTree() {
     const nativeElement: HTMLDivElement = this.treediagram.nativeElement;
