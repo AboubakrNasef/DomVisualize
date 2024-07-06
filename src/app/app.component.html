@@ -1,13 +1,8 @@
 <div class="grid grid-cols-2 grid-rows-2 h-screen">
-  <app-editor (textOutput)="updateText($event)" class="h-full"></app-editor>
+  <app-editor (textOutput)="updateText($event)" class="h-full z-2"></app-editor>
   <app-visualizer
-    [currentCode]="currentCode"
-    class="row-span-2 border"
+    [htmlDoc]="currentDoc!"
+    class="row-span-2 border z-0"
   ></app-visualizer>
-  <app-html-render>
-    <p>
-      this is text <small>Small text</small>
-      <u>this is u </u>
-    </p>
-  </app-html-render>
+  <app-html-render class="z-2" [InnerHTML]="body.innerHTML"> </app-html-render>
 </div>

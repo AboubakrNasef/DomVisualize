@@ -8,11 +8,12 @@ import {
   viewChild,
 } from '@angular/core';
 import * as d3 from 'd3';
-import { treeData } from './TreeData';
 import { PanZoomConfig, PanZoomConfigOptions } from 'ngx-panzoom';
 import { VisualCreatorVisitor } from './Helpers/VisualCreatorVisitor';
 import { IVisualElement } from './Helpers/IVisualElement';
 import { getColorOnNumber } from './Helpers/colorUtils';
+
+import Panzoom from '@panzoom/panzoom';
 
 @Component({
   selector: 'app-visualizer',
@@ -22,7 +23,8 @@ import { getColorOnNumber } from './Helpers/colorUtils';
 export class VisualizerComponent implements OnInit {
   @ViewChild('treediagram') treediagram!: ElementRef;
 
-  currentCode = input.required<string>();
+  parser = new DOMParser();
+  htmlDoc = input<Document>();
   VisualElement!: IVisualElement;
   private panZoomConfigOptions: PanZoomConfigOptions = {
     zoomLevels: 20,
@@ -36,20 +38,13 @@ export class VisualizerComponent implements OnInit {
   panzoomConfig: PanZoomConfig = new PanZoomConfig(this.panZoomConfigOptions);
   constructor(private DomDivElementRef: ElementRef) {
     effect(() => {
-      const code = this.currentCode();
-      if (code !== '') {
-        this.htmlDoc = this.parser.parseFromString(
-          this.currentCode(),
-          'text/html'
-        );
-        console.log(this.htmlDoc.children[0].children[1].innerHTML);
+      const doc = this.htmlDoc();
 
-        const visitor = new VisualCreatorVisitor();
-        visitor.VisitRoot(this.htmlDoc.children[0]);
-        this.VisualElement = visitor.visualELement;
-        console.log(this.VisualElement);
-        this.renderTree();
-      }
+      const visitor = new VisualCreatorVisitor();
+      visitor.VisitRoot(doc!.children[0]);
+      this.VisualElement = visitor.visualELement;
+      console.log(this.VisualElement);
+      this.renderTree();
     });
   }
 
@@ -57,13 +52,11 @@ export class VisualizerComponent implements OnInit {
     // this.renderTree();
   }
 
-  parser = new DOMParser();
-  htmlDoc!: Document;
-
   renderTree() {
     const nativeElement: HTMLDivElement = this.treediagram.nativeElement;
     console.log(nativeElement);
     nativeElement.innerHTML = '';
+
     // set the dimensions and margins of the diagram
     const margin = { top: 40, right: 90, bottom: 30, left: 90 },
       width = 800 - margin.left - margin.right,
@@ -159,5 +152,19 @@ export class VisualizerComponent implements OnInit {
       .attr('y', (d: any) => (d.children && d.depth !== 0 ? +(15 + 5) : 35))
       .style('text-anchor', (d) => 'middle ')
       .text((d) => d.data.value?.substring(0, 10)!);
+
+    var bound = nativeElement.getBoundingClientRect();
+    console.log(bound);
+
+    const panzoom = Panzoom(nativeElement, {
+      maxScale: 20,
+    });
+    panzoom.pan(10, 10);
+    panzoom.zoom(2, { animate: true });
+    nativeElement.addEventListener('wheel', panzoom.zoomWithWheel);
+    nativeElement.addEventListener('dblclick', (e) => {
+      panzoom.reset();
+    });
+    panzoom.reset();
   }
 }
