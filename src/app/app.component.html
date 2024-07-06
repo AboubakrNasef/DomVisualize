@@ -1,4 +1,8 @@
-<div class="flex h-screen">
-  <app-editor class="w-1/2 h-full"></app-editor>
-  <app-visualizer class="w-1/2"></app-visualizer>
+<div class="grid grid-cols-2 grid-rows-2 h-screen">
+  <app-editor (textOutput)="updateText($event)" class="h-full z-2"></app-editor>
+  <app-visualizer
+    [htmlDoc]="currentDoc!"
+    class="row-span-2 border z-0"
+  ></app-visualizer>
+  <app-html-render class="z-2" [InnerHTML]="body.innerHTML"> </app-html-render>
 </div>

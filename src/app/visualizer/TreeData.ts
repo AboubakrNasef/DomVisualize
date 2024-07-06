@@ -1,6 +1,6 @@
 export const treeData = {
   name: 'Eve',
-  value: 15,
+  value: 12,
   type: 'black',
   level: 'yellow',
   children: [

@@ -1,0 +1,66 @@
+export function getColorOnNumber(num: number) {
+  switch (num) {
+    case 0:
+      return 'red';
+    case 1:
+      return 'Orange';
+    case 2:
+      return 'Indigo';
+    case 3:
+      return 'Maroon';
+    case 4:
+      return 'DarkGreen';
+    case 5:
+      return 'CadetBlue';
+    case 6:
+      return 'Olive';
+    case 7:
+      return 'RosyBrown';
+    case 8:
+      return 'DarkGreen';
+    case 9:
+      return 'SlateBlue';
+    case 10:
+      return 'Crimson';
+    case 11:
+      return 'Teal';
+    case 12:
+      return 'Violet';
+    case 13:
+      return 'Gold';
+    case 14:
+      return 'Cyan';
+    case 15:
+      return 'Magenta';
+    case 16:
+      return 'Lavender';
+    case 17:
+      return 'Sienna';
+    case 18:
+      return 'Purple';
+    case 19:
+      return 'Navy';
+    case 20:
+      return 'Chartreuse';
+    case 21:
+      return 'Brown';
+    case 22:
+      return 'Coral';
+    case 23:
+      return 'ForestGreen';
+    case 24:
+      return 'Lime';
+    case 25:
+      return 'Khaki';
+    case 26:
+      return 'Turquoise';
+    case 27:
+      return 'Salmon';
+    case 28:
+      return 'Pink';
+    case 29:
+      return 'Beige';
+    default:
+      return 'DarkKhaki';
+  }
+}
