@@ -1,15 +1,11 @@
 body {
   background-color: #eee;
-
+height: 100%;
 }
 
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
-}
 
-.node text { font: 16px sans-serif; }
+
+.node text { font: 10px sans-serif; }
 
 .link {
   fill: none;
