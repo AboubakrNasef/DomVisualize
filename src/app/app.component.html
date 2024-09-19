@@ -2,7 +2,7 @@
   <app-editor (textOutput)="updateText($event)" class="h-full z-2"></app-editor>
   <app-visualizer
     [htmlDoc]="currentDoc!"
-    class="row-span-2 col-span-2 border z-0"
+    class="row-span-2 col-start-2 col-span-2 border z-0"
   ></app-visualizer>
   <app-html-render class="z-2" [InnerHTML]="body.innerHTML"> </app-html-render>
 </div>

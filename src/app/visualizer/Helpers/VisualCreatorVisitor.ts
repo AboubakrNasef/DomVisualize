@@ -1,47 +1,34 @@
 import { forEachChild } from 'typescript';
 import { IVisualElement } from './IVisualElement';
-
+import { shajs } from 'sha.js';
 export class VisualCreatorVisitor {
   public visualELement!: IVisualElement;
   currentLevel = 0;
-  #getText(ele: Node) {
-    if (ele.nodeType === ele.TEXT_NODE || ele.nodeType === ele.COMMENT_NODE) {
-      return ele.textContent;
+  Visit(visualELement: IVisualElement) {
+    if (!this.visualELement) {
+      this.visualELement = visualELement;
     }
-    return '';
+    console.log('Visiting', visualELement.nodeName);
   }
-  VisitRoot(ele: Node) {
-    this.visualELement = {
-      nodeName: ele.nodeName,
-      nodeType: ele.nodeType,
-      level: 0,
-      value: this.#getText(ele),
-      children: [],
-    };
-
-    for (let index = 0; index < ele.childNodes.length; index++) {
-      const element = ele.childNodes[index];
-
-      this.#VisitChild(element, this.visualELement);
-    }
+  Leave(visualELement: IVisualElement) {
+    visualELement.id = this.generateId(visualELement);
+    console.log('Leaving', visualELement.nodeName);
   }
-  #VisitChild(ele: Node, visualEle: IVisualElement) {
-    if (ele.nodeType === ele.TEXT_NODE && !ele.textContent?.trim()) {
-      return;
-    }
-    const level = visualEle.level + 1;
-    const localVisEle = {
-      nodeName: ele.nodeName,
-      nodeType: ele.nodeType,
-      level: level,
-      value: this.#getText(ele),
-      children: [],
-    };
-    visualEle.children.push(localVisEle);
 
-    for (let index = 0; index < ele.childNodes.length; index++) {
-      const element = ele.childNodes[index];
-      this.#VisitChild(element, localVisEle);
-    }
+  generateId(visualELement: IVisualElement) {
+    let str =
+      visualELement.classList +
+      visualELement.children.length.toString() +
+      visualELement.nodeName +
+      visualELement.nodeType +
+      visualELement.value;
+
+    return str;
+  }
+
+  stringToHash(string: String) {
+    var sha256stream = shajs('sha256');
+    sha256stream.end('42');
+    return sha256stream.read().toString('hex');
   }
 }

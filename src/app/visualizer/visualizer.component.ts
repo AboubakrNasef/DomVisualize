@@ -14,6 +14,7 @@ import { IVisualElement } from './Helpers/IVisualElement';
 import { getColorOnNumber } from './Helpers/colorUtils';
 
 import Panzoom from '@panzoom/panzoom';
+import { accept } from './Helpers/HtmlNode.util';
 
 @Component({
   selector: 'app-visualizer',
@@ -41,9 +42,10 @@ export class VisualizerComponent implements OnInit {
       const doc = this.htmlDoc();
 
       const visitor = new VisualCreatorVisitor();
-      visitor.VisitRoot(doc!.children[0]);
+      accept(doc!.children[0], null, visitor);
+      // visitor.VisitRoot(doc!.children[0]);
       this.VisualElement = visitor.visualELement;
-
+      console.log(this.VisualElement);
       this.renderTree();
     });
   }

@@ -4,5 +4,7 @@ export interface IVisualElement {
   level: number;
   children: IVisualElement[];
   value: string | null;
-  rect?: DOMRect | null;
+  id: string | null;
+  parent: IVisualElement;
+  classList?: String;
 }
