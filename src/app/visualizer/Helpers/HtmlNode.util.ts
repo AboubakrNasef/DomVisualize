@@ -1,6 +1,6 @@
 import { IVisualElement } from './IVisualElement';
 import { VisualCreatorVisitor } from './VisualCreatorVisitor';
-
+let currentLevel = 0;
 export function accept(
   node: Node,
   parent: IVisualElement | null,
@@ -25,13 +25,15 @@ function getVisualElementFromNode(
   parent: IVisualElement | null
 ): IVisualElement {
   let visualEle: IVisualElement = {
+    no: -1,
     nodeName: node.nodeName,
     nodeType: node.nodeType,
-    level: 0,
+    level: parent ? parent!.level + 1 : 0,
     value: getText(node),
     children: [],
     id: '',
     parent: parent!,
+    Node: node,
     // classList: node.classList.toString(),
   };
   parent?.children.push(visualEle);

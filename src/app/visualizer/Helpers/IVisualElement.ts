@@ -1,4 +1,5 @@
 export interface IVisualElement {
+  no: number;
   nodeName: string;
   nodeType: number;
   level: number;
@@ -7,4 +8,5 @@ export interface IVisualElement {
   id: string | null;
   parent: IVisualElement;
   classList?: String;
+  Node: Node;
 }
