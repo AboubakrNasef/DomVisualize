@@ -1,66 +1,48 @@
 export function getColorOnNumber(num: number) {
   switch (num) {
     case 0:
-      return 'red';
+      return '#e6194b'; // Red
     case 1:
-      return 'Orange';
+      return '#3cb44b'; // Green
     case 2:
-      return 'Indigo';
+      return '#ffe119'; // Yellow
     case 3:
-      return 'Maroon';
+      return '#4363d8'; // Blue
     case 4:
-      return 'DarkGreen';
+      return '#f58231'; // Orange
     case 5:
-      return 'CadetBlue';
+      return '#911eb4'; // Purple
     case 6:
-      return 'Olive';
+      return '#46f0f0'; // Cyan
     case 7:
-      return 'RosyBrown';
+      return '#f032e6'; // Magenta
     case 8:
-      return 'DarkGreen';
+      return '#bcf60c'; // Lime
     case 9:
-      return 'SlateBlue';
+      return '#fabebe'; // Pink
     case 10:
-      return 'Crimson';
+      return '#008080'; // Teal
     case 11:
-      return 'Teal';
+      return '#e6beff'; // Lavender
     case 12:
-      return 'Violet';
+      return '#9a6324'; // Brown
     case 13:
-      return 'Gold';
+      return '#fffac8'; // Beige
     case 14:
-      return 'Cyan';
+      return '#800000'; // Maroon
     case 15:
-      return 'Magenta';
+      return '#aaffc3'; // Mint
     case 16:
-      return 'Lavender';
+      return '#808000'; // Olive
     case 17:
-      return 'Sienna';
+      return '#ffd8b1'; // Coral
     case 18:
-      return 'Purple';
+      return '#000075'; // Navy
     case 19:
-      return 'Navy';
+      return '#808080'; // Grey
     case 20:
-      return 'Chartreuse';
-    case 21:
-      return 'Brown';
-    case 22:
-      return 'Coral';
-    case 23:
-      return 'ForestGreen';
-    case 24:
-      return 'Lime';
-    case 25:
-      return 'Khaki';
-    case 26:
-      return 'Turquoise';
-    case 27:
-      return 'Salmon';
-    case 28:
-      return 'Pink';
-    case 29:
-      return 'Beige';
+      return '#ffffff'; // White
     default:
-      return 'DarkKhaki';
+      return '#000000'; // Black
   }
 }

@@ -1,47 +1,51 @@
 import { forEachChild } from 'typescript';
 import { IVisualElement } from './IVisualElement';
-
+import * as shajs from 'sha.js';
 export class VisualCreatorVisitor {
   public visualELement!: IVisualElement;
+
+  currentObjNumber = 0;
   currentLevel = 0;
-  #getText(ele: Node) {
-    if (ele.nodeType === ele.TEXT_NODE || ele.nodeType === ele.COMMENT_NODE) {
-      return ele.textContent;
+  Visit(visualELement: IVisualElement) {
+    if (!this.visualELement) {
+      this.visualELement = visualELement;
     }
-    return '';
+    this.currentObjNumber++;
+    visualELement.no = this.currentObjNumber;
+    console.log('Visiting', visualELement.no, '--', visualELement.nodeName);
   }
-  VisitRoot(ele: Node) {
-    this.visualELement = {
-      nodeName: ele.nodeName,
-      nodeType: ele.nodeType,
-      level: 0,
-      value: this.#getText(ele),
-      children: [],
-    };
-
-    for (let index = 0; index < ele.childNodes.length; index++) {
-      const element = ele.childNodes[index];
-
-      this.#VisitChild(element, this.visualELement);
-    }
+  Leave(visualELement: IVisualElement) {
+    visualELement.id = this.generateId(visualELement);
+    console.log('Leaving', visualELement.nodeName);
   }
-  #VisitChild(ele: Node, visualEle: IVisualElement) {
-    if (ele.nodeType === ele.TEXT_NODE && !ele.textContent?.trim()) {
-      return;
-    }
-    const level = visualEle.level + 1;
-    const localVisEle = {
-      nodeName: ele.nodeName,
-      nodeType: ele.nodeType,
-      level: level,
-      value: this.#getText(ele),
-      children: [],
-    };
-    visualEle.children.push(localVisEle);
 
-    for (let index = 0; index < ele.childNodes.length; index++) {
-      const element = ele.childNodes[index];
-      this.#VisitChild(element, localVisEle);
-    }
+  generateId(visualELement: IVisualElement) {
+    let str =
+      visualELement.classList +
+      visualELement.children.length.toString() +
+      visualELement.nodeName +
+      visualELement.nodeType +
+      visualELement.value;
+    this.sha256(str).then((s) => console.log(visualELement.no, '--', s));
+
+    return str;
+  }
+
+  async sha256(message: string): Promise<string> {
+    // Encode the message as a Uint8Array
+    const msgBuffer = new TextEncoder().encode(message);
+
+    // Hash the message
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+    // Convert the hash to a byte array
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+    // Convert bytes to hex string
+    const hashHex = hashArray
+      .map((b) => ('00' + b.toString(16)).slice(-2))
+      .join('');
+
+    return hashHex;
   }
 }

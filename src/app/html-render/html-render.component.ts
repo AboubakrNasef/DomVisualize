@@ -9,8 +9,6 @@ export class HtmlRenderComponent {
   InnerHTML = input<string>();
 
   constructor() {
-    effect(() => {
-      console.log(this.InnerHTML());
-    });
+    effect(() => {});
   }
 }
